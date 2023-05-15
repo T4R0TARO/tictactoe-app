@@ -3,14 +3,37 @@ import Square from "./Square";
 import { useState } from "react";
 
 export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
   console.log(squares);
 
   function handleClick(i) {
+    // Bug: When button is clicked twice the X and O are toggled
+    // Fix: When a button is clicked the X || O remains and is not changed until the game restarts
+    if (squares[i]) return;
+
     // creates a copy of arr
+    /** why?
+     *  state should be immutable so we should not change it directly
+     *  create a copy of state and update the values from the copy
+     *  then update state with a setter f() `setSquares`
+     */
     const nextSquares = squares.slice();
-    nextSquares[i] = "👾";
+
+    // if (xIsNext) {
+    //   nextSquares[i] = "👾";
+    // } else {
+    //   nextSquares[i] = "🐙";
+    // }
+
+    xIsNext ? (nextSquares[i] = "👾") : (nextSquares[i] = "🐙");
+
+    // update values of state
     setSquares(nextSquares);
+    // update state xIsNext
+    setXIsNext(!xIsNext);
+
+    // How can we calculate the winnner?
   }
   return (
     <>
