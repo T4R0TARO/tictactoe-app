@@ -14,10 +14,16 @@
   -webkit-text-size-adjust: 100%;
 } */
 
-body {
+* {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* margin: 0; */
+  /* display: flex;
+  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -27,4 +33,7 @@ button {
   margin: 5px;
   height: 5rem;
   width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
