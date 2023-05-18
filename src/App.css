@@ -5,9 +5,25 @@
   text-align: center;
 }
 
+h1 {
+  margin-bottom: 2rem;
+}
+
 .board-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.time-button {
+  width: 300px;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+  gap: 100px;
 }
