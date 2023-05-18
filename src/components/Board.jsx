@@ -2,40 +2,15 @@ import React from "react";
 import Square from "./Square";
 import { useState } from "react";
 
-function Board() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  console.log(squares);
-
+function Board({ xIsNext, squares, onPlay }) {
   function handleClick(i) {
-    // ! Bug: When button is clicked twice the X and O are toggled
-    // * Fix: When a button is clicked the X || O remains and is not changed until the game restarts
-
-    // ! Bug: When one player wins the other player is still able to make a turn
-    // * Fix: When one player wins the other player should NOT be able to make a turn
     if (squares[i] || calculateWinner(squares)) return;
 
-    // ? creates a copy of arr
-    /** why ???
-     *  state should be immutable so we should not change it directly
-     *  create a copy of state and update the values from the copy
-     *  then update state with a setter f() `setSquares`
-     */
     const nextSquares = squares.slice();
 
-    // TODO: Refactor Code
-    // if (xIsNext) {
-    //   nextSquares[i] = "👾";
-    // } else {
-    //   nextSquares[i] = "🐙";
-    // }
+    xIsNext ? (nextSquares[i] = "🍙") : (nextSquares[i] = "🍘");
 
-    xIsNext ? (nextSquares[i] = "👾") : (nextSquares[i] = "🐙");
-
-    // update values of state
-    setSquares(nextSquares);
-    // update state xIsNext
-    setXIsNext(!xIsNext);
+    onPlay(nextSquares);
   }
 
   // How can we calculate the winnner?
@@ -95,7 +70,7 @@ function Board() {
   if (winner) {
     status = "Winner: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Next player: " + (xIsNext ? "🍙" : "🍘");
   }
 
   return (
@@ -120,14 +95,52 @@ function Board() {
   );
 }
 
+/**
+ * move state to from <Board/> to <Game />
+ */
 export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO:
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  }
+
+  // display move history buttons
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = "Go to move #" + move;
+    } else {
+      description = "Go to game start";
+    }
+    return (
+      <li key={move}>
+        <button className="time-button" onClick={() => jumpTo(move)}>
+          {description}
+        </button>
+      </li>
+    );
+  });
+
   return (
     <div className="game">
       <div className="game-board">
-        <Board />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{/* TODO */}</ol>
+        <ol>{moves}</ol>
       </div>
     </div>
   );
