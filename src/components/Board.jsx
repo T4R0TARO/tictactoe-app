@@ -74,15 +74,47 @@ function Board({ xIsNext, squares, onPlay }) {
   }
 
   // TODO: For the current move ONLY, show "You are at move #..." instead of a button
-  // TODO: Rewrite <Board/> to use two loops to make the squares
+  // TODO: Rewrite <Board/> to use two loops to make the squares ✅
   // TODO: Add a toggle button that lets you sort the moves in either accending or descending order
   // TODO: When someone wins, highlight the three squares that caused the win
   // TODO: When no one wins, display a message about result being a draw
   // TODO: Display the location for each move in the format(row,col) in the move history list
+
+  /** Refacotor Board component to use two loops to make the squares
+   *  Create an two arr to display the components in
+   *  First loop should iterate the rows of squares
+   *  Second loop should iterate the col of squares 3 * 3
+   *  Create the squares component with all the needed props
+   *  Display Squares to JSX
+   */
+
+  const boardRows = [];
+  for (let row = 0; row < 3; row++) {
+    const squaresInRow = [];
+
+    for (let col = 0; col < 3; col++) {
+      const squareIndex = row * 3 + col;
+      squaresInRow.push(
+        <Square
+          key={col}
+          value={squares[squareIndex]}
+          onSquareClick={() => handleClick(squareIndex)}
+        />
+      );
+    }
+
+    boardRows.push(
+      <div key={row} className="board-row">
+        {squaresInRow}
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="status">{status}</div>
-      <div className="board-row">
+      {boardRows}
+      {/* <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
         <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
@@ -96,7 +128,7 @@ function Board({ xIsNext, squares, onPlay }) {
         <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
         <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
         <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
+      </div> */}
     </>
   );
 }
