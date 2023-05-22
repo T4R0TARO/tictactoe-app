@@ -73,21 +73,13 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Next player: " + (xIsNext ? "🍙" : "🍘");
   }
 
-  // TODO: For the current move ONLY, show "You are at move #..." instead of a button
-  // TODO: Rewrite <Board/> to use two loops to make the squares ✅
   // TODO: Add a toggle button that lets you sort the moves in either accending or descending order
   // TODO: When someone wins, highlight the three squares that caused the win
   // TODO: When no one wins, display a message about result being a draw
   // TODO: Display the location for each move in the format(row,col) in the move history list
 
-  /** Refacotor Board component to use two loops to make the squares
-   *  Create an two arr to display the components in
-   *  First loop should iterate the rows of squares
-   *  Second loop should iterate the col of squares 3 * 3
-   *  Create the squares component with all the needed props
-   *  Display Squares to JSX
-   */
-
+  // TODO: Rewrite <Board/> to use two loops to make the squares ✅
+  // Generate 3x3 board of Square components
   const boardRows = [];
   for (let row = 0; row < 3; row++) {
     const squaresInRow = [];
@@ -114,21 +106,6 @@ function Board({ xIsNext, squares, onPlay }) {
     <>
       <div className="status">{status}</div>
       {boardRows}
-      {/* <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div> */}
     </>
   );
 }
@@ -150,6 +127,7 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
+  // TODO: For the current move ONLY, show "You are at move #..." instead of a button ✅
   // display move history buttons
   const moves = history.map((squares, move) => {
     let description;
@@ -160,9 +138,15 @@ export default function Game() {
     }
     return (
       <li key={move}>
-        <button className="time-button" onClick={() => jumpTo(move)}>
-          {description}
-        </button>
+        {currentMove === move ? (
+          <p className="current-move">
+            {move === 0 ? `Game Start` : `You are at move #${move}`}
+          </p>
+        ) : (
+          <button className="time-button" onClick={() => jumpTo(move)}>
+            {description}
+          </button>
+        )}
       </li>
     );
   });
@@ -173,7 +157,7 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <ul>{moves}</ul>
       </div>
     </div>
   );
