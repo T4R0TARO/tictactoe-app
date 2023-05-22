@@ -73,6 +73,12 @@ function Board({ xIsNext, squares, onPlay }) {
     status = "Next player: " + (xIsNext ? "🍙" : "🍘");
   }
 
+  // TODO: For the current move ONLY, show "You are at move #..." instead of a button
+  // TODO: Rewrite <Board/> to use two loops to make the squares
+  // TODO: Add a toggle button that lets you sort the moves in either accending or descending order
+  // TODO: When someone wins, highlight the three squares that caused the win
+  // TODO: When no one wins, display a message about result being a draw
+  // TODO: Display the location for each move in the format(row,col) in the move history list
   return (
     <>
       <div className="status">{status}</div>
@@ -99,7 +105,6 @@ function Board({ xIsNext, squares, onPlay }) {
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
-  // const [xIsNext, setXIsNext] = useState(true);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -107,12 +112,10 @@ export default function Game() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
-    // setXIsNext(!xIsNext);
   }
 
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
-    // setXIsNext(nextMove % 2 === 0);
   }
 
   // display move history buttons
