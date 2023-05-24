@@ -23,17 +23,17 @@ ul {
 
 .time-button,
 .toggle-sorted-moves-btn {
-  width: 300px;
+  font-size: 1rem;
+  width: 150px;
 }
 
 .game {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* align-items: center; */
   gap: 100px;
 }
 
 .current-move {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }

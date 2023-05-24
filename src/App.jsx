@@ -1,6 +1,4 @@
-import { useState } from "react";
-import Game from "./components/Board";
-import Square from ".//components/Square";
+import Game from "./components/Game";
 import "./App.css";
 
 function App() {
