@@ -21,7 +21,8 @@ ul {
   align-items: center;
 }
 
-.time-button {
+.time-button,
+.toggle-sorted-moves-btn {
   width: 300px;
 }
 
