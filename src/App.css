@@ -27,6 +27,18 @@ ul {
   width: 150px;
 }
 
+.square.winning {
+  background: greenyellow;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid green;
+}
+
+.draw {
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .game {
   display: flex;
   flex-direction: row;
