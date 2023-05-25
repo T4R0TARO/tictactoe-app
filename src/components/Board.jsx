@@ -3,6 +3,8 @@ import Square from "./Square";
 import { useState } from "react";
 
 export default function Board({ xIsNext, squares, onPlay }) {
+  const [winningSquares, setWinningSquares] = useState([]);
+
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) return;
 
@@ -52,6 +54,9 @@ export default function Board({ xIsNext, squares, onPlay }) {
         squares[a] === squares[c]
       ) {
         // return the winning player X || O
+        if (winningSquares.length === 0) {
+          setWinningSquares([a, b, c]);
+        }
         return squares[a];
       }
     }
@@ -77,7 +82,6 @@ export default function Board({ xIsNext, squares, onPlay }) {
   // TODO: When no one wins, display a message about result being a draw
   // TODO: Display the location for each move in the format(row,col) in the move history list
 
-  // TODO: Rewrite <Board/> to use two loops to make the squares ✅
   // Generate 3x3 board of Square components
   const boardRows = [];
   for (let row = 0; row < 3; row++) {
@@ -90,6 +94,8 @@ export default function Board({ xIsNext, squares, onPlay }) {
           key={col}
           value={squares[squareIndex]}
           onSquareClick={() => handleClick(squareIndex)}
+          winningSquares={winningSquares}
+          squareIndex={squareIndex}
         />
       );
     }
@@ -101,6 +107,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
     );
   }
 
+  // DISPLAY JSX
   return (
     <>
       <div className="status">{status}</div>

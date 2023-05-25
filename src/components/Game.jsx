@@ -20,13 +20,10 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
-  // TODO: Add a toggle button that lets you sort the moves in either accending or descending order ✅
-
   function handleToggleAscending() {
     setIsMovesAscending(!isMovesAscending);
   }
 
-  // TODO: For the current move ONLY, show "You are at move #..." instead of a button ✅
   // display move history buttons
   const moves = history.map((squares, move) => {
     let description;
@@ -53,10 +50,13 @@ export default function Game() {
   // Sort moves based on sorting order
   const sortedMoves = isMovesAscending ? moves : moves.slice().reverse();
 
+  const isDrawGame = moves.length > 9 ? <h3 className="draw">draw</h3> : "";
+
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        {isDrawGame}
       </div>
       <div className="game-info">
         <button
