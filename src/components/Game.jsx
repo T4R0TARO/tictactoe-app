@@ -50,13 +50,13 @@ export default function Game() {
   // Sort moves based on sorting order
   const sortedMoves = isMovesAscending ? moves : moves.slice().reverse();
 
-  const isDrawGame = moves.length > 9 ? <h3 className="draw">draw</h3> : "";
+  // ! BUG: If player wins in 9 moves the DRAW message appears DO NOT USE
+  // const isDrawGame = moves.length > 9 ? <h3 className="draw">draw</h3> : "";
 
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-        {isDrawGame}
       </div>
       <div className="game-info">
         <button

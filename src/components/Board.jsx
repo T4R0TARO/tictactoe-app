@@ -70,16 +70,18 @@ export default function Board({ xIsNext, squares, onPlay }) {
 
   // if there is a winner value
   // status will take on the value
+  // * REFACTORED
+  // * If every square has a value and does not produce a any winner values `status` = "Draw"
   // if there is no current winner
   // status will will take on the value of the current player based on state `xisNext`
   if (winner) {
     status = "Winner: " + winner;
+  } else if (squares.every((square) => square !== null)) {
+    status = "Draw";
   } else {
     status = "Next player: " + (xIsNext ? "🍙" : "🍘");
   }
 
-  // TODO: When someone wins, highlight the three squares that caused the win
-  // TODO: When no one wins, display a message about result being a draw
   // TODO: Display the location for each move in the format(row,col) in the move history list
 
   // Generate 3x3 board of Square components
