@@ -5,14 +5,14 @@ import { useState } from "react";
 export default function Board({ xIsNext, squares, onPlay }) {
   const [winningSquares, setWinningSquares] = useState([]);
 
-  function handleClick(i) {
+  function handleClick(i, row, col) {
     if (squares[i] || calculateWinner(squares)) return;
 
     const nextSquares = squares.slice();
 
     xIsNext ? (nextSquares[i] = "🍙") : (nextSquares[i] = "🍘");
 
-    onPlay(nextSquares);
+    onPlay(nextSquares, row, col);
   }
 
   // How can we calculate the winnner?
@@ -100,6 +100,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
    * 6. Create a var `currentPosition` that references the most current position
    * 7. Display `currentPosition` in description
    */
+
   // Generate 3x3 board of Square components
   const boardRows = [];
   for (let row = 0; row < 3; row++) {
@@ -111,7 +112,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
         <Square
           key={col}
           value={squares[squareIndex]}
-          onSquareClick={() => handleClick(squareIndex)}
+          onSquareClick={() => handleClick(squareIndex, row, col)}
           winningSquares={winningSquares}
           squareIndex={squareIndex}
         />
