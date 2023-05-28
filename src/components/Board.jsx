@@ -83,7 +83,23 @@ export default function Board({ xIsNext, squares, onPlay }) {
   }
 
   // TODO: Display the location for each move in the format(row,col) in the move history list
+  /**
+   * How do i get the values of row & col?
+   * How do i get var `moves` to have access to row && col?
+   * How do i get the values of the winning squares row && col?
+   * How do i get contain the values of winning squares row && col?
+   * How do I display the value of the winning squares row && col?
+   */
 
+  /**
+   * 1. Update <Square/> to take `row` and `col` as props
+   * 2. Refactor `handleClick()` to take `row` and `col` as args
+   * 3. Refactor `onPlay()` to take `row` and `col` as args
+   * 4. In <Game/> , create state `position` as an empty arr
+   * 5. Create var `position` that will contain the values of `row` and `col` and save it to state
+   * 6. Create a var `currentPosition` that references the most current position
+   * 7. Display `currentPosition` in description
+   */
   // Generate 3x3 board of Square components
   const boardRows = [];
   for (let row = 0; row < 3; row++) {
