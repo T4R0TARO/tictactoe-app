@@ -9,11 +9,14 @@ export default function Game() {
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
   const [isMovesAscending, setIsMovesAscending] = useState(true);
+  const [position, setPosition] = useState([]);
 
-  function handlePlay(nextSquares) {
+  function handlePlay(nextSquares, row, col) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+    const position = [row, col];
+    setPosition((prevState) => [...prevState, position]);
   }
 
   function jumpTo(nextMove) {
@@ -28,7 +31,8 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = "Go to move #" + move;
+      const currentPosition = position[move - 1];
+      description = "Go to move #" + move + ` (${currentPosition})`;
     } else {
       description = "Go to game start";
     }
@@ -49,9 +53,6 @@ export default function Game() {
 
   // Sort moves based on sorting order
   const sortedMoves = isMovesAscending ? moves : moves.slice().reverse();
-
-  // ! BUG: If player wins in 9 moves the DRAW message appears DO NOT USE
-  // const isDrawGame = moves.length > 9 ? <h3 className="draw">draw</h3> : "";
 
   return (
     <div className="game">
