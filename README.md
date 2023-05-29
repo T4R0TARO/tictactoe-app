@@ -25,6 +25,10 @@ The original project is from [React Docs](https://react.dev/learn/tutorial-tic-t
 
 ![image](https://github.com/T4R0TARO/tictactoe-app/assets/76195521/58187dc0-2f62-4353-a2b6-a8e403be73d1)
 
+### UPDATE
+
+![image](https://github.com/T4R0TARO/tenzies-game/assets/76195521/40ebfc50-339e-4672-bcbe-1e9a0b47d6f4)
+
 ## MVP
 
 - The players are presented w/ 3x3 buttons
@@ -35,13 +39,11 @@ The original project is from [React Docs](https://react.dev/learn/tutorial-tic-t
 
 ## Additional Features
 
-### (under-development)
-
 1. For the current move only, show "You are at move #..." instead of a button ✅
 2. Rewrite Board to use two loops to make the squares instead of hardcoding them ✅
 3. Add a toggle button that lets you sort the moves in either ascending or descending order ✅
 4. When someone wins, highlight the three squares that caused the win (and when no one wins, display a message about the result being a draw) ✅
-5. Display the location for each move in the format(row,col) in the move history list
+5. Display the location for each move in the format(row,col) in the move history list ✅
 
 ## Links
 

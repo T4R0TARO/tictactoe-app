@@ -6,11 +6,18 @@ import { useState } from "react";
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
-  const xIsNext = currentMove % 2 === 0;
-  const currentSquares = history[currentMove];
   const [isMovesAscending, setIsMovesAscending] = useState(true);
   const [position, setPosition] = useState([]);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
 
+  /** handlePlay()
+   * updates board with new history of arrays for each players turn
+   * keeps track of player turn position and updates state
+   * @param {* next array of squares in the history} nextSquares
+   * @param {* square components row position} row
+   * @param {* square componetns column position} col
+   */
   function handlePlay(nextSquares, row, col) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
@@ -19,15 +26,26 @@ export default function Game() {
     setPosition((prevState) => [...prevState, position]);
   }
 
+  /** jumpTo()
+   * updates state to go to the next players turn after the current player
+   * @param {*} nextMove
+   */
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
 
+  /** handleToggleAscending()
+   *  updates state so to toggle if the history of moves is ascending or descending
+   */
   function handleToggleAscending() {
     setIsMovesAscending(!isMovesAscending);
   }
 
-  // display move history buttons
+  /** const moves
+   *  display player move history to JSX
+   *  display the appropriate message based on number of player moves
+   *
+   */
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {

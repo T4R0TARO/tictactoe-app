@@ -5,8 +5,6 @@ export default function Square({
   onSquareClick,
   winningSquares,
   squareIndex,
-  row,
-  col,
 }) {
   const isWinningSquare = winningSquares.includes(squareIndex);
 

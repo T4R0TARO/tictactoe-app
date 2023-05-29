@@ -5,24 +5,30 @@ import { useState } from "react";
 export default function Board({ xIsNext, squares, onPlay }) {
   const [winningSquares, setWinningSquares] = useState([]);
 
+  /** handleClick()
+   *  Check if the square is already filled  or there is a winner
+   *  Set the value of the clicked square to the current player
+   *  Call the onPlay() to update the game state
+   * @param {* position in the state `squares`} i
+   * @param {* position of square components row} row
+   * @param {* position of square components column} col
+   */
   function handleClick(i, row, col) {
     if (squares[i] || calculateWinner(squares)) return;
-
     const nextSquares = squares.slice();
-
     xIsNext ? (nextSquares[i] = "🍙") : (nextSquares[i] = "🍘");
-
     onPlay(nextSquares, row, col);
   }
 
-  // How can we calculate the winnner?
-  // 1. What are all the winning conditions?
-  // 2. Iterate through winning conditions
-  // 3. Destructure all winning conditions
-  // 4. Check if state matches winning conditions
-  // 5. Check if player matches winning conditions
-  // 6. Return the player with the winning conditions
-  // 7. If no winning conditions return null
+  /** calculateWinner()
+   * Defines all possible winning conditions
+   * Checks the first item matches the other items
+   * Update state `winningSquares`
+   * Checks if winning conditions are met
+   * Return winning player
+   * @param {* state of squares} squares
+   * @returns winning player || null
+   */
   function calculateWinner(squares) {
     // winning conditions
     const lines = [
@@ -53,27 +59,19 @@ export default function Board({ xIsNext, squares, onPlay }) {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        // return the winning player X || O
         if (winningSquares.length === 0) {
           setWinningSquares([a, b, c]);
         }
+        // return the winning player 🍙 || 🍘
         return squares[a];
       }
     }
-    // otherwise return null
     return null;
   }
 
-  // contain winner value in var `winner`
   const winner = calculateWinner(squares);
   let status;
 
-  // if there is a winner value
-  // status will take on the value
-  // * REFACTORED
-  // * If every square has a value and does not produce a any winner values `status` = "Draw"
-  // if there is no current winner
-  // status will will take on the value of the current player based on state `xisNext`
   if (winner) {
     status = "Winner: " + winner;
   } else if (squares.every((square) => square !== null)) {
@@ -81,25 +79,6 @@ export default function Board({ xIsNext, squares, onPlay }) {
   } else {
     status = "Next player: " + (xIsNext ? "🍙" : "🍘");
   }
-
-  // TODO: Display the location for each move in the format(row,col) in the move history list
-  /**
-   * How do i get the values of row & col?
-   * How do i get var `moves` to have access to row && col?
-   * How do i get the values of the winning squares row && col?
-   * How do i get contain the values of winning squares row && col?
-   * How do I display the value of the winning squares row && col?
-   */
-
-  /**
-   * 1. Update <Square/> to take `row` and `col` as props
-   * 2. Refactor `handleClick()` to take `row` and `col` as args
-   * 3. Refactor `onPlay()` to take `row` and `col` as args
-   * 4. In <Game/> , create state `position` as an empty arr
-   * 5. Create var `position` that will contain the values of `row` and `col` and save it to state
-   * 6. Create a var `currentPosition` that references the most current position
-   * 7. Display `currentPosition` in description
-   */
 
   // Generate 3x3 board of Square components
   const boardRows = [];
